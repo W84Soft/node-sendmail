@@ -26,7 +26,7 @@ declare namespace sendMailFactory {
 		tls?: {
 			cert: string,
 			key: string
-		} | undefined,
+		} | boolean | undefined,
 		rejectUnauthorized: boolean,
 		autoEHLO: boolean
     }
