@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "dkim-signer": "0.2.2",
-    "mailcomposer": "3.12.0"
+    "mailcomposer": "^4.0.2"
   },
   "devDependencies": {
     "ical-toolkit": "^1.0.9",
