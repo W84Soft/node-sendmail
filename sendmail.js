@@ -162,8 +162,6 @@ module.exports=function(options) {
 			function response(code,msg) {
 				switch(code) {
 					case 220:
-						//*   220   on server ready
-						//*   220   服务就绪
 						if(upgraded==="in-progress"&&options.tls==true) {
 							sock.removeAllListeners('data');
 
