@@ -329,4 +329,5 @@ module.exports = function (options) {
             });
         })
     }
+	return sendmail;
 };
