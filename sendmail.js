@@ -303,33 +303,6 @@ module.exports=function(options) {
 		return results;
 	}
 
-	/**
-	 * sendmail directly
-	 *
-	 * @param mail {object}
-	 *             from
-	 *             to
-	 *             cc
-	 *             bcc
-	 *             replyTo
-	 *             returnTo
-	 *             subject
-	 *             type         default 'text/plain', 'text/html'
-	 *             charset      default 'utf-8'
-	 *             encoding     default 'base64'
-	 *             id           default timestamp+from
-	 *             headers      object
-	 *             content
-	 *             attachments
-	 *               [{
-	 *                 type
-	 *                 filename
-	 *                 content
-	 *               }].
-	 *
-	 * @param callback function(err, domain).
-	 *
-	 */
 	function sendmail(mail) {
 		return new Promise(function(resolve,reject) {
 			const mailcomposer=require('mailcomposer');
