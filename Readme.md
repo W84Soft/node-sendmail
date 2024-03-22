@@ -40,52 +40,44 @@ yarn add sendmail
 ## Options
 
 ``` javascript
-const sendmail = require('sendmail')({
-  logger: {
-    debug: console.log,
-    info: console.info,
-    warn: console.warn,
-    error: console.error
-  },
-  silent: false,
-  dkim: { // Default: False
-    privateKey: fs.readFileSync('./dkim-private.pem', 'utf8'),
-    keySelector: 'mydomainkey'
-  },
-  devPort: 1025, // Default: False
-  devHost: 'localhost', // Default: localhost
-  smtpPort: 2525, // Default: 25
-  smtpHost: 'localhost' // Default: -1 - extra smtp host after resolveMX
-})
+import sendMailFactory from "sendmail";
+
+const sendmail = sendMailFactory({
+	logger: {
+		debug: console.log,
+		info: console.info,
+		warn: console.warn,
+		error: console.error
+	},
+	silent: false,
+	dkim: { // Default: False
+		privateKey: fs.readFileSync("./dkim-private.pem", "utf8"),
+		keySelector: "mydomainkey"
+	},
+	devPort: 1025, // Default: False
+	devHost: "localhost", // Default: localhost
+	smtpPort: 2525, // Default: 25
+	smtpHost: "localhost" // Default: -1 - extra smtp host after resolveMX
+});
 ```
 
 ## Usage
 
 ``` javascript
-const sendmail = require('sendmail')();
+import sendMailFactory from "sendmail";
+const sendmail=sendMailFactory();
 
 sendmail({
-    from: 'no-reply@yourdomain.com',
-    to: 'test@qq.com, test@sohu.com, test@163.com ',
-    subject: 'test sendmail',
-    html: 'Mail of test sendmail ',
-  }, function(err, reply) {
-    console.log(err && err.stack);
-    console.dir(reply);
+	from: "no-reply@yourdomain.com",
+	to: "test@qq.com, test@sohu.com, test@163.com ",
+	subject: "test sendmail",
+	html: "Mail of test sendmail ",
+}).then(function(reply){
+	console.dir(reply);
+}).catch(function(err) {
+	console.log(err);
 });
 ```
-
-## Examples
-
-Please checkout our great examples
-
-- **[attachmentFile.js](https://github.com/guileen/node-sendmail/blob/master/examples/attachmentFile.js)**
-- **[developmentMode.js](https://github.com/guileen/node-sendmail/blob/master/examples/developmentMode.js)**
-- **[dkim.js](https://github.com/guileen/node-sendmail/blob/master/examples/dkim.js)**
-- **[meetingRequest.js](https://github.com/guileen/node-sendmail/blob/master/examples/meetingRequest.js)**
-- **[simple.js](https://github.com/guileen/node-sendmail/blob/master/examples/simple.js)**
-- **[devHostPort.js](https://github.com/guileen/node-sendmail/blob/master/examples/devHostPort.js)**
-- **[smtpPort.js](https://github.com/guileen/node-sendmail/blob/master/examples/smtpPort.js)**
 
 ## Upgrading
 
@@ -131,55 +123,3 @@ SMTP envelope is usually auto generated from `from`, `to`, `cc` and `bcc` fields
 ### Using Embedded Images
 
 Attachments can be used as embedded images in the HTML body. To use this feature, you need to set additional properties [Here](https://github.com/nodemailer/mailcomposer#using-embedded-images)
-
-## Change Log
-
-### 1.0.0 Mail Composer
-
-* A better way to compose the emails while still sending them out in the exact same way.
-
-### 1.1.0 Support for development SMTP
-
-* A property describing a port for a local SMTP server (see [MailHog](https://github.com/mailhog/MailHog)) was added. If the property is omitted, sendmail behaves like it used to. This feature makes it possible to test an application offline and for multiple email addresses without needing to create hundreds of mail accounts. - Special thanks goes out to  gumannp for [PR 21](https://github.com/guileen/node-sendmail/pull/21)
-
-### 1.1.0 Add DKIM signing
-
-* Added a `dkim` object to options that can have two properties: `privateKey` and `keySelector`. These options correspond to the options for [`dkim-signer`](https://github.com/andris9/dkim-signer). Added an example for these options. Special thanks goes out to download13 for [PR 23](https://github.com/guileen/node-sendmail/pull/23)
-
-### 1.1.1 Readme fix
-
-* simple link and text updates
-
-### 1.2.0 Added Support for devHost & devPort
-
-* Add option to override "localhost" when sending all SMTP traffic to a dummy server & "Converted to ES2015" 
-
-### 1.3.0
-
-* Add option to override "smtpPort:25" 
-
-### 1.4.0
-
-* Add option to add extra smtp host after resolveMX "smtpHost:-1"
-* Added Yarn Lock
-
-### 1.4.1
-
-* Update Readme 
-
-### 1.5.0
-
-* Update Readme  - Special thanks goes out to zzzgit for [PR 58](https://github.com/guileen/node-sendmail/pull/58)
-* sort mx records by priority (lowest first)  - Special thanks goes out to seasick for [PR 57](https://github.com/guileen/node-sendmail/pull/57)
-
-### 1.6.0
-
-* Updated parsing to use auto parse
-
-### 1.6.1
-
-* Rollback of autoparse
-
-## Questions, Comments & Concerns
-
-Please reach out to [Green Pioneer](https://github.com/greenpioneer). If I dont respond the first time please feel free to reach out again to get help( Also try using @greenpioneer in issues or prs). [Guileen](https://github.com/guileen) is the original creator.
