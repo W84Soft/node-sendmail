@@ -32,9 +32,9 @@ If you're interested in helping out this repo, please check out the roadmap belo
 ## Install
 
 ``` bash
-npm install sendmail --save
+npm i https://github.com/W84Soft/node-sendmail
 # or
-yarn add sendmail
+npm i github:W84Soft/node-sendmail
 ```
 
 ## Options
