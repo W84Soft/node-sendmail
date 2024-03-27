@@ -61,6 +61,11 @@ module.exports = function (options) {
                         callback(null, sock);
                     })
                 }
+				// if(domain=="localhost"){
+				// 	data=["127.0.0.1"];
+				// 	tryConnect(0);
+				// 	return;
+				// }
 
                 if (err) {
                     return callback(err);
@@ -205,16 +210,19 @@ module.exports = function (options) {
                     case 250: // operation OK
                         if (options.tls === true) {
                             if (upgraded != true) {
-                                if (/\bSTARTTLS\b/i.test(msg)) {
-                                    w('STARTTLS');
+								if (/\bSTARTTLS\b/i.test(msg)) {
+									w('STARTTLS');
                                     upgraded = "in-progress";
                                 } else {
-                                    upgraded = true;
+									upgraded = true;
+									response(220, msg);
                                 }
 
                                 break;
                             }
                         }
+
+						
 
                     case 251: // foward
                         if (step === queue.length - 1) {
@@ -318,11 +326,11 @@ module.exports = function (options) {
                     message = signature + '\r\n' + message;
                 }
                 for (let domain in groups) {
-                    sendToSMTP(domain, srcHost, from, groups[domain], message, function (err, reply) {
+                    sendToSMTP(domain, srcHost, from, groups[domain], message, function (err) {
                         if (err) {
                             reject(err);
                         } else {
-                            resolve(reply);
+                            resolve(message);
                         }
                     });
                 }
