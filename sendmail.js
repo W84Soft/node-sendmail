@@ -234,7 +234,6 @@ module.exports = function (options) {
                         break;
 
                     case 354: // start input end with . (dot)
-                        console.log()
                         logger.info('sending mail', body);
                         w(body);
                         w('');
